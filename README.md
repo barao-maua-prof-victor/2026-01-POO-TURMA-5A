@@ -58,7 +58,7 @@ Você pode:
 
 - Clonar o repositório:
 ```bash
-  git clone git@github.com:barao-maua-prof-victor/2026-01-POO-TURMA-5B.git
+  git clone git@github.com:barao-maua-prof-victor/2026-01-POO-TURMA-5A.git
  ```
 
 ---
