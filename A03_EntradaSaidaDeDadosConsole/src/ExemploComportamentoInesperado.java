@@ -7,6 +7,7 @@ public class ExemploComportamentoInesperado {
 
         System.out.println("Digite um número qualquer: ");
         int numero = sc.nextInt();
+
         System.out.println("Digite uma palavra qualquer: ");
         String texto = sc.nextLine();
     }
