@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/2026-01-POO-TURMA-5A.iml" filepath="$PROJECT_DIR$/2026-01-POO-TURMA-5A.iml" />
+      <module fileurl="file://$PROJECT_DIR$/A03_EntradaSaidaDeDadosConsole/A03_EntradaSaidaDeDadosConsole.iml" filepath="$PROJECT_DIR$/A03_EntradaSaidaDeDadosConsole/A03_EntradaSaidaDeDadosConsole.iml" />
+      <module fileurl="file://$PROJECT_DIR$/A05_AbstracaoSistemaDePedidoRestaurante/A05_AbstracaoSistemaDePedidoRestaurante.iml" filepath="$PROJECT_DIR$/A05_AbstracaoSistemaDePedidoRestaurante/A05_AbstracaoSistemaDePedidoRestaurante.iml" />
+      <module fileurl="file://$PROJECT_DIR$/A06_Encapsulamento/A06_Encapsulamento.iml" filepath="$PROJECT_DIR$/A06_Encapsulamento/A06_Encapsulamento.iml" />
+    </modules>
+  </component>
+</project>
