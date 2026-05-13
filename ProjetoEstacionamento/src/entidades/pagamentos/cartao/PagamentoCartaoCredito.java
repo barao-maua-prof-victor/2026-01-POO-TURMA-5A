@@ -2,12 +2,14 @@ package entidades.pagamentos.cartao;
 
 import entidades.pagamentos.Pagamento;
 
+import java.time.LocalDateTime;
+
 public class PagamentoCartaoCredito extends Pagamento {
     private int numeroCartao;
     private int cvv;
 
-    public PagamentoCartaoCredito(String idPagamento, Double valorPagamento, String status, int numeroCartao, int cvv) {
-        super(idPagamento, valorPagamento, status);
+    public PagamentoCartaoCredito(Double valorPagamento, LocalDateTime dataHoraPagamento, int numeroCartao, int cvv) {
+        super(valorPagamento, dataHoraPagamento);
         this.numeroCartao = numeroCartao;
         this.cvv = cvv;
     }
@@ -30,5 +32,13 @@ public class PagamentoCartaoCredito extends Pagamento {
     @Override
     protected String getTipoPagamento() {
         return "CREDITO";
+    }
+
+    public void setNumeroCartao(int numeroCartao) {
+        this.numeroCartao = numeroCartao;
+    }
+
+    public void setCvv(int cvv) {
+        this.cvv = cvv;
     }
 }

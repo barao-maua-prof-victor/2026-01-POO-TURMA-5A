@@ -1,14 +1,19 @@
 package entidades.pagamentos;
 
-public abstract class Pagamento {
-    private String idPagamento;
-    private Double valorPagamento;
-    private String status;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
-    public Pagamento(String idPagamento, Double valorPagamento, String status) {
-        this.idPagamento = idPagamento;
+public abstract class Pagamento {
+    private final UUID idPagamento;
+    private final Double valorPagamento;
+    private StatusPagamento status;
+    private final LocalDateTime dataHoraPagamento;
+
+    public Pagamento(Double valorPagamento, LocalDateTime dataHoraPagamento) {
+        this.idPagamento = UUID.randomUUID();
         this.valorPagamento = valorPagamento;
-        this.status = status;
+        this.status = StatusPagamento.AGUARDANDO_PAGAMENTO;
+        this.dataHoraPagamento = dataHoraPagamento;
     }
     // Public
     public void processarPagamento(){
@@ -16,6 +21,7 @@ public abstract class Pagamento {
         this.validarValor();
         this.executar();
         this.registrarLogFimProcessamento();
+        this.status = StatusPagamento.PAGO;
     }
 
     // Protected
@@ -41,7 +47,25 @@ public abstract class Pagamento {
     }
 
     // Private
-    private String getIdPagamento(){
+    private UUID getIdPagamento(){
         return this.idPagamento;
+    }
+
+    public StatusPagamento getStatus() {
+        return status;
+    }
+
+    public LocalDateTime getDataHoraPagamento() {
+        return dataHoraPagamento;
+    }
+
+    @Override
+    public String toString() {
+        return "Pagamento{" +
+                "idPagamento=" + idPagamento +
+                ", valorPagamento=" + valorPagamento +
+                ", status=" + status +
+                ", dataHoraPagamento=" + dataHoraPagamento +
+                '}';
     }
 }
