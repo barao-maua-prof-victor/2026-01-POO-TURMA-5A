@@ -120,5 +120,57 @@ public class Ticket {
         return valorTotal;
     }
 
+    private void calcularDataHoraPermitidaSaida(){
+        this.getDataHoraPagamento().ifPresent(dataHoraPagamento ->
+            this.dataHoraPermitidaSaida = DateTimeUtils.adicionarTempoEmMinutos(
+                    dataHoraPagamento,
+                    this.margemTempoParaSaidaEmMinutos
+            )
+        );
+    }
 
+    public void registrarPagamento(Pagamento novoPagamento){
+        this.dataHoraPagamento = novoPagamento.getDataHoraPagamento();
+        this.pagamento = novoPagamento;
+        this.calcularDataHoraPermitidaSaida();
+        this.tempoDePermanencia = this.calcularTempoDePermanencia(dataHoraPagamento);
+        this.totalIntervaloDeCobranca = this.calcularIntervalosDeCobranca(
+                this.tempoDePermanencia
+        );
+        this.valorTotal = this.calcularValorTotal(this.totalIntervaloDeCobranca);
+        this.status = StatusTicket.PAGAMENTO_EFETUADO;
+    }
+
+    public boolean temPermissaoParaSair(){
+        return this.getDataHoraPermitidaSaida()
+                .map(dataHoraPermitidaSaida ->
+                        LocalDateTime.now().isBefore(dataHoraPermitidaSaida)
+                        && this.status == StatusTicket.PAGAMENTO_EFETUADO
+                ).orElse(false);
+    }
+
+    public void registrarSaida(){
+        this.dataHoraSaida = LocalDateTime.now();
+        this.status = StatusTicket.FINALIZADO;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", plavaVeiculo='" + plavaVeiculo + '\'' +
+                ", intervaloDeCobranca=" + intervaloDeCobranca +
+                ", margemTempoParaSaidaEmMinutos=" + margemTempoParaSaidaEmMinutos +
+                ", valorUnitarioIntervaloDeCobranca=" + valorUnitarioIntervaloDeCobranca +
+                ", dataHoraEntrada=" + this.getDataHoraEntradaFormatada() +
+                ", dataHoraSaida=" + this.getDataHoraSaidaFormatada() +
+                ", dataHoraPermitidaSaida=" + this.getDataHoraPermitidaSaidaFormatada() +
+                ", dataHoraPagamento=" + this.getDataHoraPagamentoFormatada() +
+                ", tempoDePermanencia=" + tempoDePermanencia +
+                ", totalIntervaloDeCobranca=" + totalIntervaloDeCobranca +
+                ", valorTotal=" + valorTotal +
+                ", status=" + status +
+                ", pagamento=" + pagamento +
+                '}';
+    }
 }
