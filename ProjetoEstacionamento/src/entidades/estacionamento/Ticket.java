@@ -1,6 +1,7 @@
 package entidades.estacionamento;
 
 import entidades.pagamentos.Pagamento;
+import excecoes.OrdemCronologicaInvalidaExcecao;
 import utils.DateTimeUtils;
 
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ import java.util.UUID;
 
 public class Ticket {
     private final UUID id;
-    private final String plavaVeiculo;
+    private final String placaVeiculo;
     private final Integer intervaloDeCobranca;
     private final Integer margemTempoParaSaidaEmMinutos;
     private final Double valorUnitarioIntervaloDeCobranca;
@@ -29,7 +30,7 @@ public class Ticket {
             Integer margemTempoParaSaidaEmMinutos,
             Double valorUnitarioIntervaloDeCobranca) {
         this.id = UUID.randomUUID();
-        this.plavaVeiculo = plavaVeiculo;
+        this.placaVeiculo = plavaVeiculo;
         this.intervaloDeCobranca = intervaloDeCobranca;
         this.margemTempoParaSaidaEmMinutos = margemTempoParaSaidaEmMinutos;
         this.valorUnitarioIntervaloDeCobranca = valorUnitarioIntervaloDeCobranca;
@@ -45,6 +46,19 @@ public class Ticket {
     }
 
     // Getters
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getPlacaVeiculo() {
+        return placaVeiculo;
+    }
+
+    public StatusTicket getStatus() {
+        return status;
+    }
+
     // Data Hora Entrada
     public LocalDateTime getDataHoraEntrada() {
         return dataHoraEntrada;
@@ -104,7 +118,17 @@ public class Ticket {
         return totalIntervaloCobrancas * this.valorUnitarioIntervaloDeCobranca;
     }
 
-    public Double calcularValorTotaParaPagamento(LocalDateTime dataHoraPagamento){
+    public Double calcularValorTotalParaPagamento(LocalDateTime dataHoraPagamento){
+
+        if (dataHoraPagamento.isBefore(this.getDataHoraEntrada())){
+            throw new OrdemCronologicaInvalidaExcecao(
+                    "Data Hora Entrada",
+                    this.getDataHoraEntradaFormatada(),
+                    "Data Hora Pagamento",
+                    DateTimeUtils.formatarDataHoraPadrao(dataHoraPagamento)
+            );
+        }
+
         System.out.println("Data Hora Entrada: " + this.getDataHoraEntradaFormatada());
         System.out.println(
                 "Data Hora Cálculo: " + DateTimeUtils.formatarDataHoraPadrao(dataHoraPagamento)
@@ -158,7 +182,7 @@ public class Ticket {
     public String toString() {
         return "Ticket{" +
                 "id=" + id +
-                ", plavaVeiculo='" + plavaVeiculo + '\'' +
+                ", plavaVeiculo='" + placaVeiculo + '\'' +
                 ", intervaloDeCobranca=" + intervaloDeCobranca +
                 ", margemTempoParaSaidaEmMinutos=" + margemTempoParaSaidaEmMinutos +
                 ", valorUnitarioIntervaloDeCobranca=" + valorUnitarioIntervaloDeCobranca +
