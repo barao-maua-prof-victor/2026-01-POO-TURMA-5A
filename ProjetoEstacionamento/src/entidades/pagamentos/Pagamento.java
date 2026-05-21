@@ -56,11 +56,10 @@ public abstract class Pagamento {
                 + this.getIdPagamento());
     }
 
-    // Private
-    private UUID getIdPagamento(){
+    public UUID getIdPagamento(){
         return this.idPagamento;
     }
-
+    // Private
     public StatusPagamento getStatus() {
         return status;
     }

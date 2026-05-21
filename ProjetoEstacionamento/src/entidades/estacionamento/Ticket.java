@@ -45,6 +45,36 @@ public class Ticket {
         this.pagamento = null;
     }
 
+    public Ticket(
+            UUID id,
+            String placaVeiculo,
+            Integer intervaloDeCobranca,
+            Integer margemTempoParaSaidaEmMinutos,
+            Double valorUnitarioIntervaloDeCobranca,
+            LocalDateTime dataHoraEntrada,
+            LocalDateTime dataHoraSaida,
+            LocalDateTime dataHoraPermitidaSaida,
+            LocalDateTime dataHoraPagamento,
+            Integer tempoPermanencia,
+            Integer totalIntervalosDeCobranca,
+            Double valorTotal,
+            StatusTicket status) {
+        this.id = id;
+        this.placaVeiculo = placaVeiculo;
+        this.intervaloDeCobranca = intervaloDeCobranca;
+        this.margemTempoParaSaidaEmMinutos = margemTempoParaSaidaEmMinutos;
+        this.valorUnitarioIntervaloDeCobranca = valorUnitarioIntervaloDeCobranca;
+        this.dataHoraEntrada = dataHoraEntrada;
+        this.dataHoraSaida = dataHoraSaida;
+        this.dataHoraPermitidaSaida = dataHoraPermitidaSaida;
+        this.dataHoraPagamento = dataHoraPagamento;
+        this.tempoDePermanencia = tempoPermanencia;
+        this.totalIntervaloDeCobranca = totalIntervalosDeCobranca;
+        this.valorTotal = valorTotal;
+        this.status = status;
+        this.pagamento = null;
+    }
+
     // Getters
 
     public UUID getId() {
@@ -57,6 +87,34 @@ public class Ticket {
 
     public StatusTicket getStatus() {
         return status;
+    }
+
+    public Integer getIntervaloDeCobranca() {
+        return intervaloDeCobranca;
+    }
+
+    public Integer getMargemTempoParaSaidaEmMinutos() {
+        return margemTempoParaSaidaEmMinutos;
+    }
+
+    public Double getValorUnitarioIntervaloDeCobranca() {
+        return valorUnitarioIntervaloDeCobranca;
+    }
+
+    public Integer getTempoDePermanencia() {
+        return tempoDePermanencia;
+    }
+
+    public Integer getTotalIntervaloDeCobranca() {
+        return totalIntervaloDeCobranca;
+    }
+
+    public Double getValorTotal() {
+        return valorTotal;
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
     }
 
     // Data Hora Entrada
@@ -197,4 +255,36 @@ public class Ticket {
                 ", pagamento=" + pagamento +
                 '}';
     }
+
+    public static Ticket reconstituir(
+            UUID id,
+            String placaVeiculo,
+            Integer intervaloDeCobranca,
+            Integer margemTempoParaSaidaEmMinutos,
+            Double valorUnitarioIntervaloDeCobranca,
+            LocalDateTime dataHoraEntrada,
+            LocalDateTime dataHoraSaida,
+            LocalDateTime dataHoraPermitidaSaida,
+            LocalDateTime dataHoraPagamento,
+            Integer tempoPermanencia,
+            Integer totalIntervalosDeCobranca,
+            Double valorTotal,
+            StatusTicket status) {
+        return new Ticket(
+                id,
+                placaVeiculo,
+                intervaloDeCobranca,
+                margemTempoParaSaidaEmMinutos,
+                valorUnitarioIntervaloDeCobranca,
+                dataHoraEntrada,
+                dataHoraSaida,
+                dataHoraPermitidaSaida,
+                dataHoraPagamento,
+                tempoPermanencia,
+                totalIntervalosDeCobranca,
+                valorTotal,
+                status
+        );
+    }
+
 }
